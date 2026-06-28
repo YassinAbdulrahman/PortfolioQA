@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Profile {
+  id          String @id @default(cuid())
+  name        String @default("Qahtan Al Saidi")
+  title       String @default("Data Analyst")
+  location    String @default("Riyadh, Saudi Arabia")
+  email       String @default("saidi.qahtan@gmail.com")
+  phone       String @default("(050) 867-4052")
+  linkedin    String @default("linkedin.com/in/qahtan-saidi/")
+  summary     String
+  aboutText   String
+  resumeUrl   String @default("/resume.pdf")
+  avatarUrl   String @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Experience {
+  id             String   @id @default(cuid())
+  company        String
+  position       String
+  location       String
+  startDate      String
+  endDate        String
+  current        Boolean  @default(false)
+  responsibilities String
+  order          Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Skill {
+  id       String @id @default(cuid())
+  name     String
+  category String
+  level    Int    @default(80)
+  icon     String @default("")
+  order    Int    @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id          String @id @default(cuid())
+  title       String
+  description String
+  technologies String
+  imageUrl    String @default("")
+  githubUrl   String @default("")
+  demoUrl     String @default("")
+  featured    Boolean @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Certificate {
+  id        String   @id @default(cuid())
+  title     String
+  issuer    String
+  date      String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
